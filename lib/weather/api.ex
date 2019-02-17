@@ -2,6 +2,12 @@ defmodule Weather.API do
   require Logger
   import SweetXml
 
+  @type response_body :: map
+  @type status_code :: integer
+  @type error_message :: String.t
+  @type station_code :: String.t
+  @type url :: String.t
+
   @base_url "https://w1.weather.gov/xml/current_obs"
 
   @xml_attribute_mapping [
@@ -34,27 +40,36 @@ defmodule Weather.API do
     two_day_history_url: ~x"//two_day_history_url/text()"s
   ]
 
-  def fetch(location) do
-    location_url(location)
+  @spec fetch(station_code) :: {:ok, response_body} | {:error, status_code, error_message}
+  def fetch(station_code) when is_binary(station_code) do
+    station_url(station_code)
     |> HTTPoison.get()
     |> handle_response()
   end
 
-  def location_url(location) do
-    "#{@base_url}/#{location}.xml"
+  @spec station_url(station_code) :: url
+  def station_url(station_code) when is_binary(station_code) do
+    "#{@base_url}/#{String.upcase(station_code)}.xml"
   end
 
-  def handle_response({_, %{status_code: status_code, body: body}}) do
+  @spec handle_response({atom, map}) ::
+          {:ok, response_body} | {:error, status_code, error_message}
+  def handle_response({_, %{status_code: 200, body: body}}) do
     {
-      status_code |> check_for_error(),
+      :ok,
       body |> map_xml()
+    }
+  end
+
+  def handle_response({_, %{status_code: status_code}}) do
+    {
+      :error,
+      status_code,
+      "Received status code #{status_code}. Check your arguments and try again."
     }
   end
 
   def map_xml(xml) do
     xml |> xmap(@xml_attribute_mapping)
   end
-
-  defp check_for_error(200), do: :ok
-  defp check_for_error(_), do: :error
 end

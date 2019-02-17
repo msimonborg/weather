@@ -5,6 +5,11 @@ defmodule Weather.CLI do
 
   import Weather.ConsolePrinter, only: [print_for_console: 1]
 
+  @type response_body :: map
+  @type status_code :: integer
+  @type error_message :: String.t
+  @type station_code :: String.t
+
   def main(argv) do
     argv
     |> parse_args()
@@ -25,22 +30,24 @@ defmodule Weather.CLI do
     :help
   end
 
+  @spec display(:help | station_code) :: no_return | :ok
   def display(:help) do
-    IO.puts("usage: weather <location>")
+    IO.puts("usage: weather <station_code>")
 
     System.halt(0)
   end
 
-  def display(location) do
-    Weather.API.fetch(location)
+  def display(station_code) do
+    Weather.API.fetch(station_code)
     |> decode_response()
     |> print_for_console()
   end
 
+  @spec decode_response({:ok, response_body} | {:error, status_code, error_message}) :: response_body | no_return
   def decode_response({:ok, body}), do: body
 
-  def decode_response({:error, error}) do
-    IO.puts("Error fetching from NOAA: #{error["message"]}")
+  def decode_response({:error, _status_code, message}) do
+    IO.puts("Error fetching from NOAA: #{message}")
     System.halt(2)
   end
 end
