@@ -7,8 +7,8 @@ defmodule Weather.CLI do
 
   @type response_body :: map
   @type status_code :: integer
-  @type error_message :: String.t
-  @type station_code :: String.t
+  @type error_message :: String.t()
+  @type station_code :: String.t()
 
   def main(argv) do
     argv
@@ -43,7 +43,8 @@ defmodule Weather.CLI do
     |> print_for_console()
   end
 
-  @spec decode_response({:ok, response_body} | {:error, status_code, error_message}) :: response_body | no_return
+  @spec decode_response({:ok, response_body} | {:error, status_code, error_message}) ::
+          response_body | no_return
   def decode_response({:ok, body}), do: body
 
   def decode_response({:error, _status_code, message}) do

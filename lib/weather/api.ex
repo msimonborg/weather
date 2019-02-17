@@ -4,9 +4,9 @@ defmodule Weather.API do
 
   @type response_body :: map
   @type status_code :: integer
-  @type error_message :: String.t
-  @type station_code :: String.t
-  @type url :: String.t
+  @type error_message :: String.t()
+  @type station_code :: String.t()
+  @type url :: String.t()
 
   @base_url "https://w1.weather.gov/xml/current_obs"
 
