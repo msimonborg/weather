@@ -36,8 +36,6 @@ defmodule Weather.API do
   ]
 
   def fetch(location) do
-    Logger.info("Fetching weather report for #{location}")
-
     location_url(location)
     |> HTTPoison.get()
     |> handle_response()
@@ -48,9 +46,6 @@ defmodule Weather.API do
   end
 
   def handle_response({_, %{status_code: status_code, body: body}}) do
-    Logger.info("Got response: status code=#{status_code}")
-    Logger.debug(fn -> inspect(body) end)
-
     {
       status_code |> check_for_error(),
       body |> map_xml()
