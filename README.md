@@ -5,9 +5,11 @@ Command Line Application that fetches weather station data from NOAA and `weathe
 ## Installation
 
 Clone this repo and `cd` into it
+
 `$ git clone git@github.com:msimonborg/weather.git && cd weather/`
 
 Run the CLI executable listing the weather observation station code as an argument
+
 `$ ./weather KBOS`
 
 Output should look something like this:
