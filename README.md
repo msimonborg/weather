@@ -29,5 +29,5 @@ MSL Pressure: 1020.5 mb
 Altimeter: 30.14 in Hg
 ```
 
-A directory of station codes can be found at https://www.weather.gov/arh/stationlist
+A directory of valid station codes can be found at https://www.weather.gov/arh/stationlist
 
