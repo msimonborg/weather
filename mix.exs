@@ -8,7 +8,14 @@ defmodule Weather.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      escript: escript_config()
+      escript: escript_config(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -23,7 +30,8 @@ defmodule Weather.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.0.0"},
-      {:sweet_xml, "~> 0.6.5"}
+      {:sweet_xml, "~> 0.6.5"},
+      {:excoveralls, "~> 0.5.5", only: :test}
     ]
   end
 
