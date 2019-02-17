@@ -2,7 +2,7 @@ defmodule APITest do
   use ExUnit.Case, async: true
 
   import Weather.API, only: [handle_response: 1, fetch: 1]
-  import TestFixtures, only: [sample_xml:  0]
+  import TestFixtures, only: [sample_xml: 0]
 
   test "handles a successful response" do
     response = {:ok, %{status_code: 200, body: sample_xml()}}

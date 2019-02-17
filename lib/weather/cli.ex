@@ -26,9 +26,8 @@ defmodule Weather.CLI do
   end
 
   def display(:help) do
-    IO.puts """
-    usage: weather <location>
-    """
+    IO.puts("usage: weather <location>")
+
     System.halt(0)
   end
 
@@ -41,7 +40,7 @@ defmodule Weather.CLI do
   def decode_response({:ok, body}), do: body
 
   def decode_response({:error, error}) do
-    IO.puts "Error fetching from NOAA: #{error["message"]}"
+    IO.puts("Error fetching from NOAA: #{error["message"]}")
     System.halt(2)
   end
 end

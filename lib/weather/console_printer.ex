@@ -1,7 +1,6 @@
 defmodule Weather.ConsolePrinter do
-
   def print_for_console(data) do
-    IO.puts ~s"""
+    IO.puts(~s"""
 
     Location: #{data.location} (#{data.station_id}) #{data.latitude}, #{data.longitude}
 
@@ -16,6 +15,6 @@ defmodule Weather.ConsolePrinter do
     Visibility: #{data.visibility_mi} miles
     MSL Pressure: #{data.pressure_string}
     Altimeter: #{data.pressure_in} in Hg
-    """
+    """)
   end
 end

@@ -29,9 +29,11 @@ defmodule ConsolePrinterTest do
   test "prints nicely formatted string to the console" do
     response = {:ok, %{status_code: 200, body: sample_xml()}}
     {:ok, body} = handle_response(response)
-    result = capture_io fn ->
-      print_for_console(body)
-    end
+
+    result =
+      capture_io(fn ->
+        print_for_console(body)
+      end)
 
     assert result == formatted_string()
   end

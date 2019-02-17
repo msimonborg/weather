@@ -1,5 +1,4 @@
 defmodule Weather.API do
-
   require Logger
   import SweetXml
 
