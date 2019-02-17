@@ -1,6 +1,6 @@
 defmodule Weather.API do
   require Logger
-  import SweetXml
+  import SweetXml, only: [xmap: 2, sigil_x: 2]
 
   @type response_body :: map
   @type status_code :: integer
